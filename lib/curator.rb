@@ -66,4 +66,17 @@ class Curator < FileIO
     photos.flatten.compact
   end
 
+  def load_photographs(file)
+    photo_attributes = FileIO.load_photographs(file)
+    photo_attributes.each do |attributes|
+      add_photograph(attributes)
+    end
+  end
+
+  def load_artists(file)
+    artist_attributes = FileIO.load_artists(file)
+    artist_attributes.each do |attributes|
+      add_artist(attributes)
+    end
+  end
 end

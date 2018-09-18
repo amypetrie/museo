@@ -304,4 +304,12 @@ class CuratorTest < Minitest::Test
     assert_instance_of Photograph, curator.photographs[0]
     assert_equal 4, curator.photographs.length
   end
+
+  def test_load_artists_creates_artist_objects_for_curator_artists
+    curator = Curator.new
+    curator.load_artists('./data/artists.csv')
+
+    assert_instance_of Artist, curator.artists[0]
+    assert_equal 6, curator.artists.length
+  end
 end

@@ -1,7 +1,7 @@
 require 'csv'
 
 class FileIO
-  def load_artists(file)
+  def self.load_artists(file)
     artists = []
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.each do |row|
@@ -17,7 +17,7 @@ class FileIO
     return artists
   end
 
-  def load_photographs(file)
+  def self.load_photographs(file)
     photographs = []
     contents = CSV.open file, headers: true, header_converters: :symbol
     contents.each do |row|
