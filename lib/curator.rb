@@ -38,7 +38,6 @@ class Curator
   end
 
   def artists_with_multiple_photographs
-    #array of artists with more than 1
     photos_by_id= @photographs.group_by do |photo|
       photo.artist_id
     end
@@ -53,7 +52,16 @@ class Curator
   end
 
   def photographs_taken_by_artists_from(string)
-    #array of photos taken by a photographer from that country
+    photos = []
+    artists_from_country = @artists.map do |artist|
+      if artist.country == string
+        artist
+      end
+    end.compact!
+    photos << artists_from_country.map do |artist|
+      find_photographs_by_artist(artist)
+    end.flatten!
+    photos.flatten.compact
   end
 
 end
