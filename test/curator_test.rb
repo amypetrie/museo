@@ -4,6 +4,7 @@ require 'minitest/pride'
 require './lib/artist'
 require './lib/photograph'
 require './lib/curator'
+require './lib/file_io'
 
 class CuratorTest < Minitest::Test
 
@@ -294,5 +295,13 @@ class CuratorTest < Minitest::Test
     assert_equal 3, us_photos.length
     assert us_photos[0].artist_id == "2"
     assert_equal [], curator.photographs_taken_by_artists_from("Argentina")
+  end
+
+  def test_load_photographs_creates_photo_objects_for_curator_photos
+    curator = Curator.new
+    curator.load_photographs('./data/photographs.csv')
+
+    assert_instance_of Photograph, curator.photographs[0]
+    assert_equal 4, curator.photographs.length
   end
 end
