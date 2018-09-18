@@ -89,9 +89,12 @@ class Curator < FileIO
   end
 
   def artists_photographs_by_age(artist)
-    binding.pry
-    photo_hash = find_photographs_by_artist(artist).flatten.group_by do |photo|
+    photos = find_photographs_by_artist(artist)
+    photo_hash = photos.group_by do |photo|
       (photo.year.to_i - artist.born.to_i)
+    end
+    photo_hash.each_pair do |age, photos|
+      photo_hash[age] = photos.map {|photo| photo.name }
     end
   end
 
