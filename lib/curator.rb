@@ -94,7 +94,8 @@ class Curator < FileIO
       (photo.year.to_i - artist.born.to_i)
     end
     photo_hash.each_pair do |age, photos|
-      photo_hash[age] = photos.map {|photo| photo.name }
+      names = photos.map {|photo| photo.name}
+      photo_hash[age] = names[0]
     end
   end
 
