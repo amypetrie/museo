@@ -79,4 +79,20 @@ class Curator < FileIO
       add_artist(attributes)
     end
   end
+
+  def photographs_taken_between(year_range)
+    @photographs.map do |photo|
+      if year_range.include? photo.year.to_i
+        photo
+      end
+    end.compact
+  end
+
+  def artists_photographs_by_age(artist)
+    binding.pry
+    photo_hash = find_photographs_by_artist(artist).flatten.group_by do |photo|
+      (photo.year.to_i - artist.born.to_i)
+    end
+  end
+
 end

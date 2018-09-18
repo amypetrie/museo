@@ -312,4 +312,24 @@ class CuratorTest < Minitest::Test
     assert_instance_of Artist, curator.artists[0]
     assert_equal 6, curator.artists.length
   end
+
+  def test_photos_taken_between_range_returns_correct_photo_array
+    curator = Curator.new
+    curator.load_artists('./data/artists.csv')
+    curator.load_photographs('./data/photographs.csv')
+
+    assert_equal 2, curator.photographs_taken_between(1950..1965).length
+    assert_instance_of Photograph, curator.photographs_taken_between(1950..1965)[0]
+  end
+
+  def test_artists_photos_by_age_returns_hash_of_artist_age_at_the_time_and_photos_name
+    curator = Curator.new
+    curator.load_artists('./data/artists.csv')
+    curator.load_photographs('./data/photographs.csv')
+    diane_arbus = curator.find_artist_by_id("3")
+    expected = {44=>"Identical Twins, Roselle, New Jersey", 39=>"Child with Toy Hand Grenade in Central Park"}
+
+    assert_equal expected, curator.artists_photographs_by_age(diane_arbus)
+  end
+
 end
